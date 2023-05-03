@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->integer('gender')->default(0);
+            $table->string('main_image')->nullable();
+            $table->string('sub_image')->nullable();
             $table->string('hobby')->nullable();
             $table->string('character')->nullable();
             $table->string('generation')->default(0);
