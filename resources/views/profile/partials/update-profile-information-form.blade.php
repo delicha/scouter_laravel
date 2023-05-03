@@ -17,6 +17,10 @@
         @csrf
         @method('patch')
 
+        <div class="border border-gray-300 rounded-full w-32 h-32 overflow-hidden">
+            <img src="{{ asset('img/default_profile_img.png') }}" alt="Profile picture" class="w-full h-full object-cover">
+        </div>
+
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
