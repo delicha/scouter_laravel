@@ -38,10 +38,11 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function show($id)
     {
         $auth = Auth::user();
         $point = Point::where('user_id', $auth->id)->first();
+        $user = User::find($id);
 
         return view('users.show', compact('user', 'auth', 'point'));
     }
