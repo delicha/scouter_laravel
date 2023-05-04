@@ -7,14 +7,19 @@
             @else
                 <img src="{{ asset('img/default_profile_img.png') }}" alt="Profile picture" class="w-full h-48 object-cover rounded-t-lg">
             @endif
+
             <div class="p-6">
-                <h2 class="text-xl font-bold mb-2">{{ $user->name }}</h2>
-                <h3 class="text-gray-500">Hobby</h3>
-                <p class="mb-1">{{ $user->hobby }}</p>
-                <h3 class="text-gray-500">Character</h3>
-                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
-                <h3 class="text-gray-500">Generation</h3>
-                <p class="mb-1">{{ $user->generation }}</p>
+                <h2 class="text-2xl font-bold mb-2 text-center">{{ $user->name }}<span class="text-sm font-normal">さん</span></h2>
+                <div class="text-center mb-3">
+                    <i class="fa-solid fa-p fa-bounce text-3xl" style="color: orange;font-weight:bold;"></i>
+                    <span class="text-3xl px-3">{{ $point->point }}</span>ポイントを所持
+                </div>
+                <h3 class="text-white bg-gray-400 p-1 pl-2 rounded-sm">Hobby</h3>
+                <p class="my-2">{{ $user->hobby }}</p>
+                <h3 class="text-white bg-gray-400 p-1 pl-2 rounded-sm">Character</h3>
+                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden my-2">{{ $user->character }}</p>
+                <h3 class="text-white bg-gray-400 p-1 pl-2 rounded-sm">Generation</h3>
+                <p class="my-2">{{ $user->generation }}</p>
 
                 <div class="photos photos_slide">
                     <div class="swiper">
@@ -38,7 +43,7 @@
             @if($auth)
                 <div class="flex justify-center m-3">
                     <x-secondary-button>
-                        プロフィール編集
+                        <a href="{{ route('profile.edit') }}">プロフィール編集</a>
                     </x-secondary-button>
                 </div>
             @else
