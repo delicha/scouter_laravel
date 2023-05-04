@@ -15,45 +15,45 @@
                     <input type="radio" name="options" checked />
                     <span class="radio"></span>
                     @if($user->gender==0)
-                        <span>レベル1：あきらめないで。</span>
+                        <span>あきらめないで。(レベル1)</span>
                     @else
-                        <span>レベル1：修行編エピソード１的な。。</span>
+                        <span>修行編エピソード１的な。。(レベル1)</span>
                     @endif
                 </label>
                 <label class="text-left">
                     <input type="radio" name="options" />
                     <span class="radio"></span>
                     @if($user->gender==0)
-                        <span>レベル2：まずは自分磨きね。</span>
+                        <span>まずは自分磨きね。(レベル2)</span>
                     @else
-                        <span>レベル2：まずは自分磨きをしよう。。</span>
+                        <span>まずは自分磨きをしよう。。(レベル2)</span>
                     @endif
                 </label>
                 <label class="text-left">
                     <input type="radio" name="options" />
                     <span class="radio"></span>
                     @if($user->gender==0)
-                        <span>レベル3：まだ自分が見えてない。</span>
+                        <span>まだ自分が見えてない。(レベル3)</span>
                     @else
-                        <span>レベル3：自分が見えてないと思う。</span>
+                        <span>自分が見えてないと思う。(レベル3)</span>
                     @endif
                 </label>
                 <label class="text-left">
                     <input type="radio" name="options" />
                     <span class="radio"></span>
                     @if($user->gender==0)
-                        <span>レベル4：少し実力不足。</span>
+                        <span>少し実力不足。(レベル4)</span>
                     @else
-                        <span>レベル4：イマイチかな。。</span>
+                        <span>イマイチかな。。(レベル4)</span>
                     @endif
                 </label>
                 <label class="text-left">
                     <input type="radio" name="options" />
                     <span class="radio"></span>
                     @if($user->gender==0)
-                        <span>レベル5：まぁまぁ。</span>
+                        <span>まぁまぁ。(レベル5)</span>
                     @else
-                        <span>レベル5：まぁまぁかな。</span>
+                        <span>まぁまぁかな。(レベル5)</span>
                     @endif
                 </label>
             </div>    
