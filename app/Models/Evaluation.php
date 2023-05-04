@@ -13,7 +13,5 @@ class Evaluation extends Model
         'user_id',
         'target_user_id',
         'evaluation_point',
-        'created_at',
-        'updated_at'
     ];
 }
