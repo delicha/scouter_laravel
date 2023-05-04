@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEvaluationRequest;
 use App\Http\Requests\UpdateEvaluationRequest;
-use App\Models\Evaluation;
 use App\Models\User;
+use App\Models\Evaluation;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationController extends Controller
 {
@@ -14,7 +15,19 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        //
+        $auth = Auth::user();
+
+        $evaluations = Evaluation::where('target_user_id', $auth->id)->get();
+
+        $eval_ids = Evaluation::where('target_user_id', $auth->id)
+            ->pluck("user_id")
+            ->toArray();
+
+        $users = User::whereIn("id", $eval_ids)
+            ->get();
+
+
+        return view('evaluations.index', compact('evaluations', 'auth', 'users'));
     }
 
     /**
