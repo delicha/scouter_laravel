@@ -35,7 +35,7 @@
                     </div>
                 </div>
             </div>
-            @if(!$auth)
+            @if($auth)
                 <div class="flex justify-center m-3">
                     <x-secondary-button>
                         プロフィール編集
@@ -50,7 +50,7 @@
             @endif
         </div>
     </div>
-    @if(!$auth)
+    @if($auth)
         <div class="flex flex-row m-10 justify-between mb-10">
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
                 <div class="text-center mb-2">
@@ -76,7 +76,7 @@
         </div>
         <div class="flex justify-center m-3">
             <x-secondary-button>
-                自分を評価した人を見る
+                <a href="{{ route('evaluations.index') }}">自分を評価した人を見る</a>
             </x-secondary-button>
         </div>
     @endif
