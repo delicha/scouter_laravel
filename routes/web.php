@@ -30,11 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('users', UserController::class)->except(['index']);
+    Route::get('/users/{id}/detail', [UserController::class, 'detail'])->name('users.detail');
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
-    // Route::resource('evaluations', EvaluationController::class);
+    Route::get('/evaluations/', [EvaluationController::class, 'index'])->name('evaluations');
     Route::get('/evaluations/{id}', [EvaluationController::class, 'evaluate'])->name('evaluations.evaluate');
-    Route::get('/evaluations/', [EvaluationController::class, 'index'])->name('evaluations.index');
+    Route::post('/evaluations/', [EvaluationController::class, 'store'])->name('evaluations.store');
 });
 
 require __DIR__ . '/auth.php';
