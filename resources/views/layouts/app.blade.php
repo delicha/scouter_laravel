@@ -28,6 +28,15 @@
                 </header>
             @endif
 
+            <!-- message -->
+            @if(session()->has('message'))
+                <div class="mt-3 w-full h-full flex items-center justify-center">
+                    <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+                    {{ session('message') }}
+                    </div>
+                </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
