@@ -16,14 +16,4 @@ class Evaluation extends Model
         'created_at',
         'updated_at'
     ];
-
-    public function users()
-    {
-        return $this->belongsToMany(
-            RefillDetail::class,
-            'evaluations',
-            'user_id',
-            'target_user_id'
-        );
-    }
 }
