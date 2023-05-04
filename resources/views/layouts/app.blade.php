@@ -33,7 +33,7 @@
                 {{ $slot }}
             </main>
         </div>
-        <footer class="flex justify-center m-10">
+        <footer class="flex justify-center m-15 text-sm text-gray-500">
             Scouter all right reserved.
         </footer>
     </body>
