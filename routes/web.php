@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EvaluationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,7 +31,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)->except(['index']);
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
-    // Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+
+    // Route::resource('evaluations', EvaluationController::class);
+    Route::get('/evaluations/{id}', [EvaluationController::class, 'evaluate'])->name('evaluations.evaluate');
 });
 
 require __DIR__ . '/auth.php';
