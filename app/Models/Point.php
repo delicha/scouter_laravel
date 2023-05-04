@@ -13,4 +13,9 @@ class Point extends Model
         'user_id',
         'point',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
