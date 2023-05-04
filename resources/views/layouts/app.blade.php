@@ -28,12 +28,21 @@
                 </header>
             @endif
 
+            <!-- message -->
+            @if(session()->has('message'))
+                <div class="mt-3 w-full h-full flex items-center justify-center">
+                    <div class="bg-green-500 text-white font-bold rounded-lg border shadow-lg p-5">
+                    {{ session('message') }}
+                    </div>
+                </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
         </div>
-        <footer class="flex justify-center m-10">
+        <footer class="flex justify-center m-15 text-sm text-gray-500">
             Scouter all right reserved.
         </footer>
     </body>

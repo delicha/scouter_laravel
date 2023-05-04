@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEvaluationRequest;
 use App\Http\Requests\UpdateEvaluationRequest;
+use App\Models\User;
 use App\Models\Evaluation;
+use App\Models\Point;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationController extends Controller
 {
@@ -13,15 +16,29 @@ class EvaluationController extends Controller
      */
     public function index()
     {
-        //
+        $auth = Auth::user();
+
+        $evaluations = Evaluation::where('target_user_id', $auth->id)->get();
+
+        $eval_ids = Evaluation::where('target_user_id', $auth->id)
+            ->pluck("user_id")
+            ->toArray();
+
+        $users = User::whereIn("id", $eval_ids)
+            ->get();
+
+
+        return view('evaluations.index', compact('evaluations', 'auth', 'users'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function evaluate($id)
     {
-        //
+        $auth = Auth::user();
+        $user = User::find($id);
+        return view('evaluations.evaluate', compact('user', 'auth'));
     }
 
     /**
@@ -29,7 +46,21 @@ class EvaluationController extends Controller
      */
     public function store(StoreEvaluationRequest $request)
     {
-        //
+        $evaluation = Evaluation::create([
+            'user_id' => $request->user_id,
+            'target_user_id' => $request->target_user_id,
+            'evaluation_point' => intval($request->options),
+        ]);
+
+        // 相手にもポイント贈与
+        $point = Point::where('user_id', $request->user_id)->first();
+        $GAIN_POINT = 1;
+        $point->update([
+            'user_id' => $request->user_id,
+            'point' => $point->point + $GAIN_POINT,
+        ]);
+
+        return redirect()->route('users.show', $request->target_user_id)->with('message', '評価をして1ポイント獲得');
     }
 
     /**

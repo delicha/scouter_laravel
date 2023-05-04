@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Requests\StorePointRequest;
+use App\Http\Requests\UpdatePointRequest;
 use App\Models\Point;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class UserController extends Controller
+class PointController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $users = User::inRandomOrder()->paginate(10);
-
-        return view('dashboard', compact('users'));
+        //
     }
 
     /**
@@ -30,7 +27,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePointRequest $request)
     {
         //
     }
@@ -38,19 +35,15 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Point $point)
     {
-        $auth = Auth::user();
-        $point = Point::where('user_id', $auth->id)->first();
-        $user = User::find($id);
-
-        return view('users.show', compact('user', 'auth', 'point'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(Point $point)
     {
         //
     }
@@ -58,7 +51,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdatePointRequest $request, Point $point)
     {
         //
     }
@@ -66,7 +59,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(Point $point)
     {
         //
     }

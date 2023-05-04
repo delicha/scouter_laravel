@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEvaluationRequest extends FormRequest
+class StorePointRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,9 +22,7 @@ class StoreEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['integer'],
-            'target_user_id' => ['integer'],
-            'evaluation_point' => ['string'],
+            //
         ];
     }
 }

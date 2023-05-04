@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Point;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('layouts.navigation', function ($view) {
+            $auth = Auth::user();
+            $point = null;
+
+            if ($auth) {
+                $point = Point::where('user_id', $auth->id)->first();
+            }
+
+            $view->with('point', $point);
+        });
     }
 }

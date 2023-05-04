@@ -1,3 +1,5 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -48,3 +50,73 @@
   }
 }
 
+
+/* 評価css */
+
+.swappy-radios label {
+  display: block;
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-left: 3rem;
+  padding-right: 2rem;
+  cursor: pointer;
+  /* user-select: none; */
+  color: #555;
+  font-weight: bold;
+}
+
+.swappy-radios label:hover input ~ .radio {
+  /* using opacity for hover effect, because background is used (and delayed!) for the shuffle */
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.swappy-radios input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.swappy-radios input:checked ~ span {
+  color: #0bae72;
+  transition: color .5s;
+}
+
+.swappy-radios input:checked ~ .radio {
+  background-color: #0ac07d;
+  opacity: 1!important;
+}
+
+.swappy-radios input:checked ~ .radio::after {
+  opacity: 1;
+  /* applying in JS, so as not to make selections delayed when no js */
+  /* transition: opacity 0s 0.75s; */
+}
+
+.swappy-radios .radio {
+  position: absolute;
+  top: 6px;
+  left: 15px;
+  height: 1rem;
+  width: 1rem;
+  background: #c9ded6;
+  border-radius: 50%;
+}
+
+.swappy-radios .radio::after {
+  display: block;
+  content: '';
+  position: absolute;
+  opacity: 0;
+  top: .2rem;
+  left: .2rem;
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #fff;
+  /* applying in JS, so as not to make selections delayed when no js */
+  /* transition: opacity 0s 0.75s; */
+}

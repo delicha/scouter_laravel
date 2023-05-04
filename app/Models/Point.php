@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Evaluation extends Model
+class Point extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'target_user_id',
-        'evaluation_point',
+        'point',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

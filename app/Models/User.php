@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'gender',
+        'main_image',
+        'sub_image',
+        'hobby',
+        'character',
+        'generation',
     ];
 
     /**
@@ -41,4 +47,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'evaluations',
+            'target_user_id',
+            'user_id'
+        );
+    }
+
+    public function point()
+    {
+        return $this->hasOne(Point::class);
+    }
 }

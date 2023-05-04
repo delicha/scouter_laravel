@@ -59,19 +59,19 @@
 
         <div>
             <x-input-label for="hobby" :value="__('Hobby')" />
-            <x-text-input id="hobby" name="hobby" type="text" class="mt-1 block w-full" :value="old('name', $user->hobby)" required autofocus autocomplete="hobby" />
+            <x-text-input id="hobby" name="hobby" type="text" class="mt-1 block w-full" :value="old('hobby', $user->hobby)" required autofocus autocomplete="hobby" />
             <x-input-error class="mt-2" :messages="$errors->get('hobby')" />
         </div>
 
         <div>
             <x-input-label for="character" :value="__('Character')" />
-            <x-text-input id="character" name="character" type="text" class="mt-1 block w-full" :value="old('name', $user->character)" required autofocus autocomplete="character" />
+            <x-text-input id="character" name="character" type="text" class="mt-1 block w-full" :value="old('character', $user->character)" required autofocus autocomplete="character" />
             <x-input-error class="mt-2" :messages="$errors->get('character')" />
         </div>
 
         <div>
             <x-input-label for="generation" :value="__('Generation')" />
-            <x-text-input id="generation" name="generation" type="text" class="mt-1 block w-full" :value="old('name', $user->generation)" required autofocus autocomplete="generation" />
+            <x-text-input id="generation" name="generation" type="text" class="mt-1 block w-full" :value="old('generation', $user->generation)" required autofocus autocomplete="generation" />
             <x-input-error class="mt-2" :messages="$errors->get('generation')" />
         </div>
 
