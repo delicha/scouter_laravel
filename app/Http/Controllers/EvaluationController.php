@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEvaluationRequest;
 use App\Http\Requests\UpdateEvaluationRequest;
 use App\Models\Evaluation;
+use App\Models\User;
 
 class EvaluationController extends Controller
 {
@@ -19,9 +20,10 @@ class EvaluationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function evaluate($id)
     {
-        //
+        $user = User::find($id);
+        return view('evaluations.evaluate', compact('user'));
     }
 
     /**
