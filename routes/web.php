@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
 
     // Route::resource('evaluations', EvaluationController::class);
     Route::get('/evaluations/{id}', [EvaluationController::class, 'evaluate'])->name('evaluations.evaluate');
+    Route::get('/evaluations/', [EvaluationController::class, 'index'])->name('evaluations.index');
 });
 
 require __DIR__ . '/auth.php';
