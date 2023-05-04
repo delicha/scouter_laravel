@@ -57,4 +57,9 @@ class User extends Authenticatable
             'user_id'
         );
     }
+
+    public function point()
+    {
+        return $this->hasOne(Point::class);
+    }
 }
