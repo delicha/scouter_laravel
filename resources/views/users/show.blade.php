@@ -35,30 +35,49 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-center m-3">
-                <x-secondary-button>
-                    プロフィール編集
-                </x-secondary-button>
+            @if(!$auth)
+                <div class="flex justify-center m-3">
+                    <x-secondary-button>
+                        プロフィール編集
+                    </x-secondary-button>
+                </div>
+            @else
+                <div class="flex justify-center m-3">
+                    <x-secondary-button>
+                        <a href="{{ route('evaluations.evaluate', $user->id) }}">測定する</a>
+                    </x-secondary-button>
+                </div>
+            @endif
+        </div>
+    </div>
+    @if(!$auth)
+        <div class="flex flex-row m-10 justify-between mb-10">
+            <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
+                <div class="text-center mb-2">
+                    <i class="fa-solid fa-bars-progress fa-bounce text-4xl"></i>
+                </div>
+                <h2 class="text-center text-xl font-bold mb-2">印象</h2>
+                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
+                <div class="text-center mb-2">
+                    <i class="fa-solid fa-user-group fa-bounce text-4xl"></i>
+                </div>
+                <h2 class="text-center text-xl font-bold mb-2">世代別支持率</h2>
+                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
+                <div class="text-center mb-2">
+                    <i class="fa-solid fa-venus-mars fa-bounce text-4xl"></i>
+                </div>
+                <h2 class="text-center text-xl font-bold mb-2">性別別支持率</h2>
+                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
             </div>
         </div>
-    </div>
-    <div class="flex flex-row m-10 justify-between mb-10">
-        <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
-            <h2>印象</h2>
-            <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
+        <div class="flex justify-center m-3">
+            <x-secondary-button>
+                自分を評価した人を見る
+            </x-secondary-button>
         </div>
-        <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
-            <h2>世代別支持率</h2>
-            <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
-            <h2>性別別支持率</h2>
-            <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
-        </div>
-    </div>
-    <div class="flex justify-center m-3">
-        <x-secondary-button>
-            自分を評価した人を見る
-        </x-secondary-button>
-    </div>
+    @endif
 </x-app-layout>
