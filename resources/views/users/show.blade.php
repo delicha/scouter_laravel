@@ -59,34 +59,53 @@
             @if($point->point >= 3)
                 <div class="flex justify-center m-3">
                     <x-secondary-button>
-                        <a href="{{ route('') }}">この人の評価を見る(3pt消化)</a>
+                        {{-- <a href="{{ route('') }}"> --}}
+                            この人の評価を見る(3pt消化)
+                        {{-- </a> --}}
                     </x-secondary-button>
                 </div>
             @endif
         </div>
     </div>
-    @if($auth == $user)
+    {{-- @if($auth == $user) --}}
         <div class="flex flex-row m-10 justify-between mb-10">
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
                 <div class="text-center mb-2">
                     <i class="fa-solid fa-bars-progress fa-bounce text-4xl"></i>
                 </div>
-                <h2 class="text-center text-xl font-bold mb-2">印象</h2>
-                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
+                <h2 class="text-center text-xl font-bold mb-5">{{ $user->name }}さんの印象</h2>
+                <div class="text-center">
+                    <p class="font-bold mb-5">
+                        total
+                    </p>
+                    <p class="text-5xl font-bold">
+                        {{ $total }}
+                    </p>
+                    <p class="">
+                        /100
+                    </p>
+                    <p class="">
+                        
+                    </p>
+                    <p class="">
+                        ({{ $count }}人に評価されました)
+                    </p>
+                </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
                 <div class="text-center mb-2">
                     <i class="fa-solid fa-user-group fa-bounce text-4xl"></i>
                 </div>
-                <h2 class="text-center text-xl font-bold mb-2">世代別支持率</h2>
-                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
+                <h2 class="text-center text-xl font-bold mb-5">世代別支持率</h2>
+                <p class="">{{ $gen[0] }}</p>
             </div>
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
                 <div class="text-center mb-2">
                     <i class="fa-solid fa-venus-mars fa-bounce text-4xl"></i>
                 </div>
-                <h2 class="text-center text-xl font-bold mb-2">性別別支持率</h2>
-                <p class="break-word max-w-300 sm:max-w-250 overflow-hidden mb-1">{{ $user->character }}</p>
+                <h2 class="text-center text-xl font-bold mb-5">性別別支持率</h2>
+                <p class="">{{ $gen[0] }}</p>
+                <p class="">{{ $gen[1] }}</p>
             </div>
         </div>
         <div class="flex justify-center m-3">
@@ -94,5 +113,5 @@
                 <a href="{{ route('evaluations') }}">自分を評価した人を見る</a>
             </x-secondary-button>
         </div>
-    @endif
+    {{-- @endif --}}
 </x-app-layout>

@@ -44,7 +44,11 @@ class UserController extends Controller
         $point = Point::where('user_id', $auth->id)->first();
         $user = User::find($id);
 
-        return view('users.show', compact('user', 'auth', 'point'));
+        $total = eval_avg($id);
+        $count = eval_count($id);
+        $gen = eval_by_gen($id);
+
+        return view('users.show', compact('user', 'auth', 'point', 'total', 'count', 'gen'));
     }
 
     /**
