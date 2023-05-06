@@ -17,7 +17,8 @@ class PointFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => fake()->numberBetween($min = 1, $max = 20),
+            'point' => fake()->numberBetween($min = 1, $max = 10),
         ];
     }
 }
