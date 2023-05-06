@@ -1,5 +1,8 @@
 <?php
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
+
 if (!function_exists('get_eval_points')) {
   function get_eval_points($id)
   {
@@ -35,22 +38,27 @@ if (!function_exists('eval_by_gen')) {
       ->pluck('user_id')
       ->toArray();
 
-    $user_by_gen_ids = App\Models\User::whereIn('id', $user_ids)
-      ->select('id', 'gender')
-      ->get()
-      ->groupBy('gender')
-      ->map(function ($group) {
-        return $group->pluck('id')->toArray();
-      });
-
     $results = [];
 
-    $evaluation_points = [];
-    for ($i = 0; $i < $user_by_gen_ids->count(); $i++) {
-      $evaluation_points = App\Models\Evaluation::whereIn('user_id', $user_by_gen_ids[$i])
-        ->where('target_user_id', $id)
-        ->pluck('evaluation_point')
-        ->toArray();
+    if (empty($user_ids)) {
+      return $results = [0, 0];
+    } else {
+      $user_by_gen_ids = App\Models\User::whereIn('id', $user_ids)
+        ->select('id', 'gender')
+        ->get()
+        ->groupBy('gender')
+        ->map(function ($group) {
+          return $group->pluck('id')->toArray();
+        });
+
+      $evaluation_points = [];
+
+      foreach ($user_by_gen_ids as $group) {
+        $evaluation_points = App\Models\Evaluation::whereIn('user_id', $group)
+          ->where('target_user_id', $id)
+          ->pluck('evaluation_point')
+          ->toArray();
+      }
 
       $sum = array_sum($evaluation_points);
       $avg = $sum != 0 ? $sum / count($evaluation_points) : 0;

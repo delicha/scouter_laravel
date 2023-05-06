@@ -13,7 +13,7 @@
                 @if($auth == $user)
                     <div class="text-center mb-3">
                         <i class="fa-solid fa-p fa-bounce text-3xl" style="color: orange;font-weight:bold;"></i>
-                        <span class="text-3xl px-3">{{ $point->point }}</span>ポイントを所持
+                        <span class="text-3xl px-3">{{ isset($point->point )?$point->point:'0' }}</span>ポイントを所持
                     </div>
                 @endif
                 <h3 class="text-white bg-gray-400 p-1 pl-2 rounded-sm">Hobby</h3>
@@ -56,7 +56,7 @@
                 </div>
             @endif
             {{-- チケット制がよい。1日たつと無効 tickets table--}}
-            @if($point->point >= 3)
+            @if(isset($point) && $point->point >= 3)
                 <div class="flex justify-center m-3">
                     <x-secondary-button>
                         {{-- <a href="{{ route('') }}"> --}}
@@ -78,18 +78,22 @@
                     <p class="font-bold mb-5">
                         total
                     </p>
-                    <p class="text-5xl font-bold">
-                        {{ $total }}
-                    </p>
-                    <p class="">
-                        /100
-                    </p>
-                    <p class="">
-                        
-                    </p>
-                    <p class="">
-                        ({{ $count }}人に評価されました)
-                    </p>
+                    @if($total==0)
+                        <p>まだ評価はありません</p>
+                    @else
+                        <p class="text-5xl font-bold">
+                            {{ $total }}
+                        </p>
+                        <p class="">
+                            /100
+                        </p>
+                        <p class="">
+                            
+                        </p>
+                        <p class="">
+                            ({{ $count }}人に評価されました)
+                        </p>
+                    @endif
                 </div>
             </div>
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
@@ -97,15 +101,15 @@
                     <i class="fa-solid fa-user-group fa-bounce text-4xl"></i>
                 </div>
                 <h2 class="text-center text-xl font-bold mb-5">世代別支持率</h2>
-                <p class="">{{ $gen[0] }}</p>
+                <p class="{{ $gen[0]!==0 ? 'text-3xl font-bold'  : 'text-sm' }}">{{ $gen[0]!==0 ? $gen[0] : 'まだ評価はありません' }}</p>
             </div>
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
                 <div class="text-center mb-2">
                     <i class="fa-solid fa-venus-mars fa-bounce text-4xl"></i>
                 </div>
                 <h2 class="text-center text-xl font-bold mb-5">性別別支持率</h2>
-                <p class="">{{ $gen[0] }}</p>
-                <p class="">{{ $gen[1] }}</p>
+                <p class="{{ isset($gen[0])? 'text-3xl font-bold'  : 'text-sm' }}">{{ isset($gen[0]) ? $gen[0] : 'まだ評価はありません' }}</p>
+                <p class="{{ isset($gen[1])? 'text-3xl font-bold'  : 'text-sm' }}">{{ isset($gen[1]) ? $gen[1] : 'まだ評価はありません' }}</p>
             </div>
         </div>
         <div class="flex justify-center m-3">
