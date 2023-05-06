@@ -69,6 +69,13 @@
             <x-input-error class="mt-2" :messages="$errors->get('character')" />
         </div>
 
+        @if(isset($user->last_login_at))
+            <div>
+                <x-input-label for="character" :value="__('last_login_at')" />
+                <p>{{ date("Y/m/d-H:i:s", strtotime($user->last_login_at)) }}</p>
+            </div>
+        @endif
+
         {{-- <div>
             <x-input-label for="name" :value="__('Generation')" />
             <label for="generation">世代を選択してください:</label>
