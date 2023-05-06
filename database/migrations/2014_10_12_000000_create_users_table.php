@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->integer('gender')->default(0);
-            $table->string('main_image')->nullable();
-            $table->string('sub_image')->nullable();
+            $table->string('main_image')->default('img/default_profile_img.png');
+            $table->string('sub_image')->default('');
             $table->string('hobby')->nullable();
             $table->string('character')->nullable();
-            $table->string('generation')->default(0);
+            $table->string('generation')->default(1);
+            $table->datetime('last_login_at')->nullable();
             $table->timestamps();
         });
     }
