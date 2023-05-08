@@ -21,6 +21,8 @@ class ProfileUpdateRequest extends FormRequest
             'hobby' => ['string', 'max:255'],
             'character' => ['string', 'max:255'],
             'generation' => ['integer'],
+            'main_image' => ['file', 'mimes:gif,png,jpg,webp', 'max:3072'],
+            'sub_image' => ['string', 'mimes:gif,png,jpg,webp', 'max:3072'],
         ];
     }
 }

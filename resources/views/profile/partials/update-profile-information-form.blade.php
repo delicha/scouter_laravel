@@ -13,19 +13,19 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
-        @if($user->main_image)
-            <div class="border border-gray-300 rounded-full w-32 h-32 overflow-hidden">
-                <img src="{{ $user->main_image }}" alt="Profile picture" class="w-full h-full object-cover">
-            </div>
-        @else
-            <div class="border border-gray-300 rounded-full w-32 h-32 overflow-hidden">
-                <img src="{{ asset('img/default_profile_img.png') }}" alt="Profile picture" class="w-full h-full object-cover">
-            </div>
-        @endif
+        <div>
+            <x-picture-input />
+            <x-input-error class="mt-2" :messages="$errors->get('picture')" />
+        </div>
+
+        <div>
+            <x-sub-picture-input />
+            <x-input-error class="mt-2" :messages="$errors->get('picture')" />
+        </div>
 
         <div>
             <x-input-label for="name" :value="__('Name')" />
@@ -107,7 +107,7 @@
         <div>
             <x-input-label for="name" :value="__('Generation')" />
             <label for="generation">世代を選択してください:</label>
-            <select id="generation" name="generation" required autofocus autocomplete="generation">
+            <select id="generation" name="generation" required autofocus autocomplete="generation" class="rounded-md border-gray-400 shadow-sm">
                 @foreach($generations as $value => $label)
                     <option value="{{ $value }}" {{ $user->generation == $value ? 'selected' : '' }}>
                         {{ $label }}
