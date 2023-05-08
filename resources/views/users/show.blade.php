@@ -2,11 +2,8 @@
 
     <div class="flex flex-row flex-wrap justify-center items-center m-10">
         <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden">
-            @if($user->main_image)
-                <img src="https://picsum.photos/300/300/?random&category=people" alt="Profile picture" class="w-full h-48 object-cover rounded-t-lg">
-            @else
-                <img src="{{ asset('img/default_profile_img.png') }}" alt="Profile picture" class="w-full h-48 object-cover rounded-t-lg">
-            @endif
+
+            <img src="{{ asset('storage/' .$user->main_image) }}" alt="Profile picture" class="w-full h-48 object-cover rounded-t-lg">
 
             <div class="p-6">
                 <h2 class="text-2xl font-bold mb-2 text-center">{{ $user->name }}<span class="text-sm font-normal">さん</span></h2>
@@ -55,19 +52,21 @@
                     </x-secondary-button>
                 </div>
             @endif
-            {{-- チケット制がよい。1日たつと無効 tickets table--}}
+
             @if(isset($point) && $point->point >= 3)
                 <div class="flex justify-center m-3">
-                    <x-secondary-button>
-                        {{-- <a href="{{ route('') }}"> --}}
+                    <form method="POST" action="{{ route('users.ticket', $user->id) }}">
+                        @csrf
+                        <x-secondary-button type="submit">
                             この人の評価を見る(3pt消化)
-                        {{-- </a> --}}
-                    </x-secondary-button>
+                        </x-secondary-button>
+                    </form>
                 </div>
             @endif
         </div>
     </div>
-    {{-- @if($auth == $user) --}}
+    
+    @if($auth == $user || $ticket)
         <div class="flex flex-row m-10 justify-between mb-10">
             <div class="bg-white rounded-lg shadow-lg card max-w-300 sm:max-w-250 overflow-hidden p-5">
                 <div class="text-center mb-2">
@@ -112,10 +111,12 @@
                 <p class="{{ isset($gen[1])? 'text-3xl font-bold'  : 'text-sm' }}">{{ isset($gen[1]) ? $gen[1] : 'まだ評価はありません' }}</p>
             </div>
         </div>
-        <div class="flex justify-center m-3">
-            <x-secondary-button>
-                <a href="{{ route('evaluations') }}">自分を評価した人を見る</a>
-            </x-secondary-button>
-        </div>
-    {{-- @endif --}}
+        @if($auth == $user)
+            <div class="flex justify-center m-3">
+                <x-secondary-button>
+                    <a href="{{ route('evaluations') }}">自分を評価した人を見る</a>
+                </x-secondary-button>
+            </div>
+        @endif
+    @endif
 </x-app-layout>

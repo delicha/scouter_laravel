@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('users', UserController::class)->except(['index']);
     Route::get('/users/{id}/detail', [UserController::class, 'detail'])->name('users.detail');
+    Route::post('/users/{id}/ticket', [UserController::class, 'gain_ticket'])->name('users.ticket');
     Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
 
     Route::get('/evaluations/', [EvaluationController::class, 'index'])->name('evaluations');
