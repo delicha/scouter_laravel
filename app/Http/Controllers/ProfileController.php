@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    protected $casts = [
-        'images' => 'json',
-    ];
 
     /**
      * Display the user's profile form.
