@@ -1,21 +1,27 @@
-<div class="flex mb-4" x-data="picturePreview()">
+<div class="flex mb-4" x-data="pictureSubPreview()">
     <div class="mr-3">
         
-        <div id="preview_sub"></div>
+        <div id="preview_sub">
 
-        @if(Auth::user()->sub_image)
-            <img
-                id="preview"
-                src="{{ asset('storage/' . Auth::user()->sub_image) }}"
-                alt=""
-                class="w-16 h-16 rounded-full object-cover border-none bg-gray-200">
-        @else
-            <img
-                id="preview"
-                src="{{ asset('img/default_profile_img.png') }}"
-                alt=""
-                class="w-16 h-16 rounded-full object-cover border-none bg-gray-200">
-        @endif
+            @if(Auth::user()->sub_image)
+                @php
+                    $paths = explode(',', Auth::user()->sub_image);
+                @endphp
+                @foreach($paths as $path)
+                    <img   
+                        src="{{ asset('storage/' . trim($path)) }}"
+                        alt=""
+                        class="w-16 h-16 rounded-full object-cover border-none bg-gray-200">
+                @endforeach
+            @else
+                <img
+                    
+                    src="{{ asset('img/default_profile_img.png') }}"
+                    alt=""
+                    class="w-16 h-16 rounded-full object-cover border-none bg-gray-200">
+            @endif
+
+        </div>
     </div>
     <div class="flex items-center">
         <button
@@ -24,12 +30,12 @@
                 class="inline-flex items-center uppercase rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
             サブ画像を選択
         </button>
-        <input @change="showPreview(event)" type="file" name="sub_images[]" id="sub_image" class="hidden" multiple>
+        <input @change="showSubPreview(event)" type="file" name="sub_images[]" id="sub_image" class="hidden" multiple>
 
         <script>
-            function picturePreview() {
+            function pictureSubPreview() {
                 return {
-                    showPreview: (event) => {
+                    showSubPreview: (event) => {
                         const previewEl = document.getElementById('preview_sub');
                         previewEl.innerHTML = ''; // 一旦子要素を全削除
 
