@@ -27,6 +27,7 @@ class User extends Authenticatable
         'hobby',
         'character',
         'generation',
+        'last_login_at',
     ];
 
     /**

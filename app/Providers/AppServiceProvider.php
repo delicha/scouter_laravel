@@ -32,5 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
             $view->with('point', $point);
         });
+
+        require_once app_path('Helpers/helpers.php');
     }
 }

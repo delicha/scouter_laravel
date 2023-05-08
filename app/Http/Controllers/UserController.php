@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Point;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,17 +43,54 @@ class UserController extends Controller
     {
         $auth = Auth::user();
         $point = Point::where('user_id', $auth->id)->first();
-        $user = User::find($id);
 
-        return view('users.show', compact('user', 'auth', 'point'));
+        $user = User::find($id);
+        $ticket = Ticket::where('user_id', $auth->id)
+            ->where('target_user_id', $user->id)
+            ->whereDate('updated_at', '>=', now()->subDay())
+            ->first();
+
+        $total = eval_avg($id);
+        $count = eval_count($id);
+        $gen = eval_by_gen($id);
+
+        return view('users.show', compact('user', 'auth', 'point', 'total', 'count', 'gen', 'ticket'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function gain_ticket($id)
     {
-        //
+        $auth = Auth::user();
+        $point = Point::where('user_id', $auth->id)->first();
+        $user = User::find($id);
+
+        $ticket = Ticket::Create(
+            [
+                'user_id' => $auth->id,
+                'target_user_id' =>  $user->id,
+            ],
+
+        );
+
+        $point = Point::where('user_id', $auth->id)->first();
+
+        $LOSE_POINT = 3;
+
+        $result = ($point->point - $LOSE_POINT) < 0 ? 0 : $point->point - $LOSE_POINT;
+
+        $point->update(
+
+            ['point' => $result]
+        );
+
+        $total = eval_avg($id);
+        $count = eval_count($id);
+        $gen = eval_by_gen($id);
+
+        return redirect()->route('users.show', compact('user', 'auth', 'point', 'total', 'count', 'gen', 'ticket'))
+            ->with('message', '3ポイント消費しました。このユーザーの評価を24時間閲覧できます！');
     }
 
     /**

@@ -20,11 +20,7 @@
         <a href="{{ route('users.show', $user) }}">
             <div class="flex-column justify-center m-3">
                 <div class="border border-gray-300 rounded-full w-32 h-32 overflow-hidden m-auto">
-                    @if($user->main_image)
-                        <img src="https://picsum.photos/300/300/?random&category=people" alt="Profile picture" class="w-full h-full object-cover">
-                    @else
-                        <img src="{{ asset('img/default_profile_img.png') }}" alt="Profile picture" class="w-full h-full object-cover">
-                    @endif
+                    <img src="{{ asset('storage/' .$user->main_image) }}" alt="Profile picture" class="w-full h-full object-cover">
                 </div>
                 <p class="text-center">{{ $user->name }}</p>
             </div>

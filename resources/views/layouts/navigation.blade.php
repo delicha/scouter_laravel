@@ -23,7 +23,7 @@
                 </div>
                 <div class="ml-10 mt-6">
                     <i class="fa-solid fa-p" style="color: orange;font-weight:bold;"></i>
-                    <span class="px-3">{{ $point->point }}</span>ポイントを所持
+                    <span class="px-3">{{ isset($point->point )?$point->point:'0' }}</span>ポイントを所持
                 </div>
             </div>
 

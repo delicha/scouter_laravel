@@ -17,8 +17,8 @@ class EvaluationFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->numberBetween($min = 1, $max = 30),
-            'target_user_id' => fake()->numberBetween($min = 1, $max = 30),
+            'user_id' => fake()->numberBetween($min = 1, $max = 20),
+            'target_user_id' => fake()->numberBetween($min = 1, $max = 20),
             'evaluation_point' => fake()->numberBetween($min = 0, $max = 10),
         ];
     }

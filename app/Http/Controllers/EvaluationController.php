@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Evaluation;
 use App\Models\Point;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class EvaluationController extends Controller
 {
@@ -52,15 +53,27 @@ class EvaluationController extends Controller
             'evaluation_point' => intval($request->options),
         ]);
 
-        // 相手にもポイント贈与
-        $point = Point::where('user_id', $request->user_id)->first();
-        $GAIN_POINT = 1;
-        $point->update([
-            'user_id' => $request->user_id,
-            'point' => $point->point + $GAIN_POINT,
-        ]);
 
-        return redirect()->route('users.show', $request->target_user_id)->with('message', '評価をして1ポイント獲得');
+        // 評価してポイント取得
+        $point = Point::where('user_id', $request->user_id)->first();
+
+        $GAIN_POINT = 1;
+
+        $point->updateOrCreate(
+            ['user_id' => $request->user_id],
+            ['point' => DB::raw('point + ' . $GAIN_POINT)]
+        );
+
+
+
+        // 相手にもポイント贈与
+        $point_given = Point::where('user_id', $request->target_user_id)->first();
+        $point_given->updateOrCreate(
+            ['user_id' => $request->target_user_id],
+            ['point' => DB::raw('point + ' . $GAIN_POINT)]
+        );
+
+        return redirect()->route('users.show', $request->target_user_id)->with('message', '評価をして1ポイント獲得、評価相手も1ポイント獲得しました。');
     }
 
     /**

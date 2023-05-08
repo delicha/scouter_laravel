@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluations', function (Blueprint $table) {
+        Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('target_user_id')->nullable();
-            $table->integer('evaluation_point')->nullable();
+
             // 指定したカラムに外部キー制約を定義
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('target_user_id')->references('id')->on('users')->onDelete('cascade');
-
 
             $table->timestamps();
         });
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluations');
+        Schema::dropIfExists('tickets');
     }
 };
