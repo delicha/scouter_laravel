@@ -21,6 +21,11 @@
                         {{ __('プロフィール') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('chatify')" :active="request()->routeIs('chartify')">
+                        {{ __('チャット') }}
+                    </x-nav-link>
+                </div>
                 <div class="ml-10 mt-6">
                     <i class="fa-solid fa-p" style="color: orange;font-weight:bold;"></i>
                     <span class="px-3">{{ isset($point->point )?$point->point:'0' }}</span>ポイントを所持
