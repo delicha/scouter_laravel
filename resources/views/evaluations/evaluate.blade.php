@@ -58,6 +58,51 @@
                             <span>まぁまぁかな。(レベル5)</span>
                         @endif
                     </label>
+                    <label class="text-left">
+                        <input type="radio" name="options" value="6" />
+                        <span class="radio"></span>
+                        @if($user->gender==0)
+                            <span>やるわね。(レベル6)</span>
+                        @else
+                            <span>やるな。(レベル6)</span>
+                        @endif
+                    </label>
+                    <label class="text-left">
+                        <input type="radio" name="options" value="7" />
+                        <span class="radio"></span>
+                        @if($user->gender==0)
+                            <span>タイプ！(レベル7)</span>
+                        @else
+                            <span>ストライク！(レベル7)</span>
+                        @endif
+                    </label>
+                    <label class="text-left">
+                        <input type="radio" name="options" value="8" />
+                        <span class="radio"></span>
+                        @if($user->gender==0)
+                            <span>イケてる！！(レベル8)</span>
+                        @else
+                            <span>文句なし！！(レベル8)</span>
+                        @endif
+                    </label>
+                    <label class="text-left">
+                        <input type="radio" name="options" value="9" />
+                        <span class="radio"></span>
+                        @if($user->gender==0)
+                            <span>ドキドキする！！！(レベル9)</span>
+                        @else
+                            <span>ヤバすぎ！！！(レベル9)</span>
+                        @endif
+                    </label>
+                    <label class="text-left">
+                        <input type="radio" name="options" value="10" />
+                        <span class="radio"></span>
+                        @if($user->gender==0)
+                            <span>カッコいいが渋滞してる！(レベル10)</span>
+                        @else
+                            <span>かわいいが大渋滞！(レベル10)</span>
+                        @endif
+                    </label>
                 </div>    
     
                 <div class="flex justify-center m-5">
