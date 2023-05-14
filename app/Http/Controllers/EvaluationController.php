@@ -53,25 +53,37 @@ class EvaluationController extends Controller
             'evaluation_point' => intval($request->options),
         ]);
 
-
-        // 評価してポイント取得
-        $point = Point::where('user_id', $request->user_id)->first();
-
         $GAIN_POINT = 1;
 
-        $point->updateOrCreate(
-            ['user_id' => $request->user_id],
-            ['point' => DB::raw('point + ' . $GAIN_POINT)]
-        );
+        // 評価してポイント取得
+        $user_point = Point::where('user_id', $request->user_id)->first();
 
-
+        if (!is_null($user_point)) {
+            $user_point->update([
+                'user_id' => $request->user_id,
+                'point' => $user_point->point + $GAIN_POINT
+            ]);
+        } else {
+            $user_point = Point::create([
+                'user_id' => $request->user_id,
+                'point' => 0 + $GAIN_POINT
+            ]);
+        }
 
         // 相手にもポイント贈与
-        $point_given = Point::where('user_id', $request->target_user_id)->first();
-        $point_given->updateOrCreate(
-            ['user_id' => $request->target_user_id],
-            ['point' => DB::raw('point + ' . $GAIN_POINT)]
-        );
+        $user_point_given = Point::where('user_id', $request->target_user_id)->first();
+
+        if (!is_null($user_point_given)) {
+            $user_point_given->update([
+                'user_id' => $request->target_user_id,
+                'point' => $user_point_given->point + $GAIN_POINT
+            ]);
+        } else {
+            $user_point_given = Point::create([
+                'user_id' => $request->target_user_id,
+                'point' => 0 + $GAIN_POINT
+            ]);
+        }
 
         return redirect()->route('users.show', $request->target_user_id)->with('message', '評価をして1ポイント獲得、評価相手も1ポイント獲得しました。');
     }
