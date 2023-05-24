@@ -34,39 +34,44 @@ if (!function_exists('eval_avg')) {
 if (!function_exists('eval_by_gen')) {
   function eval_by_gen($id)
   {
-    $user_ids = App\Models\Evaluation::where('target_user_id', $id)
-      ->pluck('user_id')
-      ->toArray();
+    $user = App\Models\User::find($id);
 
     $results = [];
 
-    if (empty($user_ids)) {
-      return $results = [0, 0];
-    } else {
-      $user_by_gen_ids = App\Models\User::whereIn('id', $user_ids)
-        ->select('id', 'gender')
-        ->get()
-        ->groupBy('gender')
-        ->map(function ($group) {
-          return $group->pluck('id')->toArray();
-        });
-
-      $evaluation_points = [];
-
-      foreach ($user_by_gen_ids as $group) {
-        $evaluation_points = App\Models\Evaluation::whereIn('user_id', $group)
-          ->where('target_user_id', $id)
-          ->pluck('evaluation_point')
-          ->toArray();
-      }
-
-      $sum = array_sum($evaluation_points);
-      $avg = $sum != 0 ? $sum / count($evaluation_points) : 0;
-      $TEN_TIMES = 10;
-      $avg_point = intval(round($avg) * $TEN_TIMES);
-
-      $results[] = strval($avg_point);
+    if (!$user) {
+      // 指定されたIDのユーザーが存在しない場合の処理
+      return $results;
     }
+
+    $gender = $user->gender;
+
+    $evaluations = App\Models\Evaluation::join('users', function ($join) use ($gender) {
+      $join->on('evaluations.target_user_id', '=', 'users.id')
+        ->where(function ($query) use ($gender) {
+          $query->where('users.gender', $gender)
+            ->orWhere('users.gender', 0)
+            ->orWhere('users.gender', 1);
+        });
+    })
+      ->pluck('evaluations.evaluation_point')
+      ->toArray();
+
+    // dd($evaluations);
+
+    if (empty($evaluations)) {
+      // 評価ポイントが存在しない場合の処理
+      return $results;
+    }
+
+    $sum = array_sum($evaluations);
+
+    // dd($sum);
+
+    $avg = $sum / count($evaluations);
+
+    $TEN_TIMES = 10;
+    $avg_point = intval(round($avg * $TEN_TIMES));
+    $results[] = strval($avg_point);
 
     return $results;
   }
